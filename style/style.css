@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: #F2F2F2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  color: #ecf0f1;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  background-color: #123458;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table thead {
+  background-color: #252525;
+  color: white;
+  font-weight: bolder;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid;
+  color: #ecf0f1;
+}
+
+table th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #123458;
+}
+
+form {
+  background-color: #B6B09F;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #0000;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #EAE4D5;
+  color: #000000;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+}
+
+form input[type="text"]::placeholder,
+form input[type="number"]::placeholder {
+  color: #000000;
+}
+
+form input[type="submit"] {
+  background-color: #123458;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: "Outfit", sans-serif;
+}
+
+form input[type="submit"]:hover {
+  background-color: black;
+  color: white;
+}
