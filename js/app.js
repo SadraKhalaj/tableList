@@ -14,7 +14,17 @@ signupForm.addEventListener("submit", (e) => {
     age: e.target.age.value,
     fatherName: e.target.fatherName.value,
   };
+ 
 
+  if (
+    userData.firstName === "" ||
+    userData.lastName === "" ||
+    userData.age === "" ||
+    userData.fatherName === ""
+  ) {
+    alert("please fill out the form.");
+    return;
+  }
   userList.push(userData);
 
   e.target.userName.value = "";
@@ -33,7 +43,10 @@ function renderInUT(list, container) {
     tr.innerHTML = `<td>${value.firstName}</td>
                         <td>${value.lastName}</td>
                         <td>${value.age}</td>
-                        <td>${value.fatherName}</td>`;
+                        <td>${value.fatherName}</td>
+                        <td>
+                           <i class="fas fa-trash"></i>
+                        </td>`;
 
     console.log(value);
     console.log(tr);
@@ -41,6 +54,13 @@ function renderInUT(list, container) {
     container.appendChild(tr);
   });
 }
+
+tableBody.addEventListener("click" , (e)=>{
+  if(e.target.classList.contains("fa-trash")){
+    e.target.parentElement.parentElement.remove()
+  }
+});
+
 
 function preventNumberInput(event) {
   const charCode = event.which ? event.which : event.keyCode;
@@ -50,7 +70,6 @@ function preventNumberInput(event) {
   }
   return true;
 }
-
 
 if (userNameInput) {
   userNameInput.addEventListener("keypress", preventNumberInput);
