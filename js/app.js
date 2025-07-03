@@ -13,8 +13,8 @@ signupForm.addEventListener("submit", (e) => {
     lastName: e.target.userLastName.value,
     age: e.target.age.value,
     fatherName: e.target.fatherName.value,
+    id: generateUniqueId()
   };
- 
 
   if (
     userData.firstName === "" ||
@@ -37,14 +37,15 @@ signupForm.addEventListener("submit", (e) => {
 
 function renderInUT(list, container) {
   container.innerHTML = "";
-  list.forEach((value) => {
+  list.forEach((value , index) => {
     const tr = document.createElement("tr");
 
-    tr.innerHTML = `<td>${value.firstName}</td>
+    tr.innerHTML = `<td>${index + 1}</td>
+                       <td>${value.firstName}</td>
                         <td>${value.lastName}</td>
                         <td>${value.age}</td>
                         <td>${value.fatherName}</td>
-                        <td>
+                        <td class="delete" id=${value.id}>
                            <i class="fas fa-trash"></i>
                         </td>`;
 
@@ -54,12 +55,6 @@ function renderInUT(list, container) {
     container.appendChild(tr);
   });
 }
-
-tableBody.addEventListener("click" , (e)=>{
-  if(e.target.classList.contains("fa-trash")){
-    e.target.parentElement.parentElement.remove()
-  }
-});
 
 
 function preventNumberInput(event) {
@@ -82,3 +77,33 @@ if (userLastNameInput) {
 if (fatherNameInput) {
   fatherNameInput.addEventListener("keypress", preventNumberInput);
 }
+
+
+
+
+tableBody.addEventListener("click" , (e)=>{
+  if(e.target.classList.contains("delete")){
+    const clickedId = e.target.id;
+
+    const newList = userList.filter((user)=> user.id != clickedId);
+
+    userList.length = 0;
+
+    userList.push(...newList)
+
+    renderInUT(userList,tableBody)
+  }
+})
+
+
+
+
+function generateUniqueId() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0; // Random number between 0 and 15
+      const v = c === 'x' ? r : (r & 0x3 | 0x8); // For 'x', any random number; for 'y', ensure we get a value 8-11
+      return v.toString(16); // Convert to hexadecimal
+  });
+};
+
+ 
