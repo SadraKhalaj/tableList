@@ -5,6 +5,7 @@ const userNameInput = document.getElementById("userName");
 const userLastNameInput = document.getElementById("userLastName");
 const fatherNameInput = document.getElementById("fatherName");
 const ageInput = document.getElementById("age");
+const searchBox = document.getElementById("searchBox");
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -13,7 +14,7 @@ signupForm.addEventListener("submit", (e) => {
     lastName: e.target.userLastName.value,
     age: e.target.age.value,
     fatherName: e.target.fatherName.value,
-    id: generateUniqueId()
+    id: generateUniqueId(),
   };
 
   if (
@@ -37,7 +38,7 @@ signupForm.addEventListener("submit", (e) => {
 
 function renderInUT(list, container) {
   container.innerHTML = "";
-  list.forEach((value , index) => {
+  list.forEach((value, index) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `<td>${index + 1}</td>
@@ -55,7 +56,6 @@ function renderInUT(list, container) {
     container.appendChild(tr);
   });
 }
-
 
 function preventNumberInput(event) {
   const charCode = event.which ? event.which : event.keyCode;
@@ -78,32 +78,38 @@ if (fatherNameInput) {
   fatherNameInput.addEventListener("keypress", preventNumberInput);
 }
 
-
-
-
-tableBody.addEventListener("click" , (e)=>{
-  if(e.target.classList.contains("delete")){
+tableBody.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
     const clickedId = e.target.id;
 
-    const newList = userList.filter((user)=> user.id != clickedId);
+    const newList = userList.filter((user) => user.id != clickedId);
 
     userList.length = 0;
 
-    userList.push(...newList)
+    userList.push(...newList);
 
-    renderInUT(userList,tableBody)
+    renderInUT(userList, tableBody);
   }
-})
-
-
-
+});
 
 function generateUniqueId() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0; // Random number between 0 and 15
-      const v = c === 'x' ? r : (r & 0x3 | 0x8); // For 'x', any random number; for 'y', ensure we get a value 8-11
-      return v.toString(16); // Convert to hexadecimal
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
   });
-};
+}
 
- 
+searchBox.addEventListener("input", (e) => {
+  const userKeyWord = e.target.value;
+
+  const finalResult = userList.filter(
+    (user) =>
+      user.firstName.includes(userKeyWord) ||
+      user.lastName.includes(userKeyWord)
+  );
+
+  renderInUT(finalResult, tableBody);
+});
+
+renderInUT(userList, tableBody);
