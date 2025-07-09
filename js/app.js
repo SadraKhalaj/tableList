@@ -1,11 +1,12 @@
 const signupForm = document.querySelector("#signupForm");
-const userList = [];
 const tableBody = document.querySelector("#tableBody");
 const userNameInput = document.getElementById("userName");
 const userLastNameInput = document.getElementById("userLastName");
 const fatherNameInput = document.getElementById("fatherName");
 const ageInput = document.getElementById("age");
 const searchBox = document.getElementById("searchBox");
+
+const userList = JSON.parse(localStorage.getItem("user")) || [];
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -27,6 +28,8 @@ signupForm.addEventListener("submit", (e) => {
     return;
   }
   userList.push(userData);
+
+  localStorage.setItem("user", JSON.stringify(userList));
 
   e.target.userName.value = "";
   e.target.userLastName.value = "";
@@ -87,6 +90,8 @@ tableBody.addEventListener("click", (e) => {
     userList.length = 0;
 
     userList.push(...newList);
+
+    localStorage.setItem("user", JSON.stringify(userList));
 
     renderInUT(userList, tableBody);
   }
