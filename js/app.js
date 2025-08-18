@@ -1,10 +1,13 @@
-const signupForm = document.querySelector("#signupForm");
-const tableBody = document.querySelector("#tableBody");
-const userNameInput = document.getElementById("userName");
-const userLastNameInput = document.getElementById("userLastName");
-const fatherNameInput = document.getElementById("fatherName");
-const ageInput = document.getElementById("age");
-const searchBox = document.getElementById("searchBox");
+import {
+  signupForm,
+  tableBody,
+  userNameInput,
+  userLastNameInput,
+  fatherNameInput,
+  searchBox,
+} from "./domElements.js";
+import { renderInUT } from "./render.js";
+import { generateUniqueId, preventNumberInput } from "./utils.js";
 
 const userList = JSON.parse(localStorage.getItem("user")) || [];
 
@@ -39,36 +42,6 @@ signupForm.addEventListener("submit", (e) => {
   renderInUT(userList, tableBody);
 });
 
-function renderInUT(list, container) {
-  container.innerHTML = "";
-  list.forEach((value, index) => {
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `<td>${index + 1}</td>
-                       <td>${value.firstName}</td>
-                        <td>${value.lastName}</td>
-                        <td>${value.age}</td>
-                        <td>${value.fatherName}</td>
-                        <td class="delete" id=${value.id}>
-                           <i class="fas fa-trash"></i>
-                        </td>`;
-
-    console.log(value);
-    console.log(tr);
-
-    container.appendChild(tr);
-  });
-}
-
-function preventNumberInput(event) {
-  const charCode = event.which ? event.which : event.keyCode;
-  if (charCode >= 48 && charCode <= 57) {
-    event.preventDefault();
-    return false;
-  }
-  return true;
-}
-
 if (userNameInput) {
   userNameInput.addEventListener("keypress", preventNumberInput);
 }
@@ -96,14 +69,6 @@ tableBody.addEventListener("click", (e) => {
     renderInUT(userList, tableBody);
   }
 });
-
-function generateUniqueId() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 searchBox.addEventListener("input", (e) => {
   const userKeyWord = e.target.value;
